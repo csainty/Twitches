@@ -1,0 +1,44 @@
+﻿@using Combres.Mvc
+@{ Layout = "";}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Twitch.es</title>
+    @Html.CombresLink("siteCss")
+</head>
+<body>
+    <header>
+        <a href="/">Twitch.es</a>
+        <nav>
+            <ul>
+                <li data-bind="visible: isLoggedIn">
+                    Welcome <span data-bind="text: userName"></span>
+                </li>
+                <li data-bind="visible: isLoggedIn() === false">
+                    <button data-bind="click: signIn">Sign In</button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <section>
+        <article>
+        </article>
+    </section>
+    @Html.CombresLink("siteJs")
+    <script type="text/javascript">
+        var viewModel = {
+            isLoggedIn: ko.observable(false),
+            userName: ko.observable(""),
+            signIn: function () {
+                this.isLoggedIn(true);
+                this.userName("csainty");
+            }
+        }
+        viewModel.welcomeMessage = ko.dependentObservable(function () {
+            return this.isLoggedIn() ? this.userName() : "Sign In";
+        }, viewModel);
+        ko.applyBindings(viewModel);
+    </script>
+</body>
+</html>
