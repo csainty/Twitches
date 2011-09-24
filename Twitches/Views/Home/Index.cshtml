@@ -7,7 +7,7 @@
     <title>Twitch.es</title>
     @Html.CombresLink("siteCss")
 </head>
-<body>
+<body data-bind="visible: loaded" style="display: none;">
     <header>
         <a href="/">Twitch.es</a>
         <nav>
@@ -29,10 +29,11 @@
     <script type="text/javascript">
         var viewModel = {
             isLoggedIn: ko.observable(false),
+            loaded: ko.observable(true),
             userName: ko.observable(""),
             signIn: function () {
                 this.isLoggedIn(true);
-                this.userName("csainty");
+                this.userName("testing");
             }
         }
         viewModel.welcomeMessage = ko.dependentObservable(function () {
