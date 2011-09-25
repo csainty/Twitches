@@ -48,3 +48,4 @@ packages/Modernizr.1.7
 packages/repositories.config
 packages/YUICompressor.NET.1.5.0.0/lib/NET20
 Twitches/log.txt
+Twitches/log.*

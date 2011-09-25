@@ -4,42 +4,67 @@
 <html>
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width; initial-scale=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+@*  
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" sizes="114x114" href="assets/114-icon.png" />
+    <link rel="apple-touch-startup-image" href="images/splash.png">
+*@
+
     <title>Twitch.es</title>
-    @Html.CombresLink("siteCss")
+    <link rel="stylesheet" href="@Html.CombresUrl("siteCss")" media="all" />
+    <link rel="stylesheet" href="@Html.CombresUrl("less-10")" media="only screen and (min-width: 992px)" />
+    <link rel="stylesheet" href="@Html.CombresUrl("less-8")" media="only screen and (min-width: 768px) and (max-width: 991px)" />
+    <link rel="stylesheet" href="@Html.CombresUrl("less-3")" media="only screen and (max-width: 767px)" />
+    <link rel="stylesheet" href="@Html.CombresUrl("less-5")" media="only screen and (min-width: 480px) and (max-width: 767px)" />
+    <!--[if lt IE 9]>
+        <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 </head>
 <body data-bind="visible: loaded" style="display: none;">
-    <header>
-        <a href="/">Twitch.es</a>
-        <nav>
-            <ul>
-                <li data-bind="visible: isLoggedIn">
-                    Welcome <span data-bind="text: userName"></span>
-                </li>
-                <li data-bind="visible: isLoggedIn() === false">
-                    <button data-bind="click: signIn">Sign In</button>
-                </li>
-            </ul>
-        </nav>
+    <header class="whiteBox">
+        <div class="contentBox">
+            <a href="/">Twitch.es</a>
+            <nav>
+                <ul>
+                    <li data-bind="visible: isLoggedIn">
+                        Welcome <span data-bind="text: userName"></span>
+                    </li>
+                    <li data-bind="visible: isLoggedIn() === false">
+                        <button data-bind="click: signIn">Sign In</button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </header>
     <section>
-        <article>
+        <article class="whiteBox">
+            <div class="contentBox">
+				<p data-bind="visible: firstTime">Just playing around with KnockoutJS, type a term in the search box and hit search.</p>
+                <ul data-bind="template: { name : 'tweetTemplate', foreach: tweets }"></ul>
+            </div>
         </article>
+        <aside class="whiteBox">
+            <div class="contentBox">
+                <input type="text" placeholder="search..." data-bind="value: searchTerm" /><br />
+                <button data-bind="click: search">Search</button>
+            </div>
+        </aside>
     </section>
-    @Html.CombresLink("siteJs")
-    <script type="text/javascript">
-        var viewModel = {
-            isLoggedIn: ko.observable(false),
-            loaded: ko.observable(true),
-            userName: ko.observable(""),
-            signIn: function () {
-                this.isLoggedIn(true);
-                this.userName("testing");
-            }
-        }
-        viewModel.welcomeMessage = ko.dependentObservable(function () {
-            return this.isLoggedIn() ? this.userName() : "Sign In";
-        }, viewModel);
-        ko.applyBindings(viewModel);
+    <script type="text/x-jquery-tmpl" id="tweetTemplate">
+        <li class="tweet">
+			<img src="${profile_image_url}" alt="${from_user}" />
+			<p class="content">
+				${from_user}: ${text}<br />
+			</p>
+			<p class="datetime">${created_at.toLocaleString()}</p>
+			<div class="ui-helper-clearfix"></div>
+        </li>
     </script>
+    @Html.CombresLink("siteJs")
 </body>
 </html>

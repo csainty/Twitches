@@ -99,17 +99,23 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\combres.xml" />
+    <Content Include="Content\Less4\10col.css" />
+    <Content Include="Content\Less4\3col.css" />
+    <Content Include="Content\Less4\5col.css" />
+    <Content Include="Content\Less4\8col.css" />
+    <Content Include="Content\Less4\fonts.css" />
+    <Content Include="Content\Less4\style.css" />
     <Content Include="Content\Reset.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\jquery-1.6.4-vsdoc.js" />
     <Content Include="Scripts\jquery-1.6.4.js" />
     <Content Include="Scripts\jquery-1.6.4.min.js" />
+    <Content Include="Scripts\jquery.mediaqueries1.2.js" />
     <Content Include="Scripts\jquery.tmpl.js" />
     <Content Include="Scripts\knockout-1.3.0beta.debug.js" />
     <Content Include="Scripts\knockout-1.3.0beta.js" />
-    <Content Include="Scripts\modernizr-1.7.js" />
-    <Content Include="Scripts\modernizr-1.7.min.js" />
+    <Content Include="Scripts\Site.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
