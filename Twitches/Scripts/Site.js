@@ -4,12 +4,15 @@
 	loaded: ko.observable(true),
 	userName: ko.observable(""),
 	searchTerm: ko.observable(""),
+	chatMessage: ko.observable(""),
 	lastSearchTerm: ko.observable(""),
 	twitter_since_id: ko.observable(""),
 	tweets: ko.observableArray([]),
 	messages: ko.observableArray([]),
 	signIn: signIn,
-	search: searchTwitter
+	search: searchTwitter,
+	sendMessage: sendMessage,
+	refreshMessages: pollMessages
 }
 viewModel.welcomeMessage = ko.dependentObservable(function () {
 	return this.isLoggedIn() ? this.userName() : "Sign In";
@@ -40,23 +43,33 @@ function searchTwitter() {
 		},
 		success: handleTwitterResponse
 	});
+}
+
+function sendMessage() {
 	$.ajax({
 		url: '/Api/SendMessage',
 		dataType: 'json',
+		cache: false,
 		data: {
 			channel: viewModel.searchTerm(),
-			message: 'Hello World'
+			message: viewModel.chatMessage()
 		},
 		success: function (result) {
-			$.ajax({
-				url: '/Api/GetMessages',
-				dataType: 'json',
-				data: {
-					channel: viewModel.searchTerm()
-				},
-				success: handleMessageResponse
-			});
+			viewModel.chatMessage('');
+			pollMessages();
 		}
+	});
+}
+
+function pollMessages() {
+	$.ajax({
+		url: '/Api/GetMessages',
+		dataType: 'json',
+		cache: false,
+		data: {
+			channel: viewModel.searchTerm()
+		},
+		success: handleMessageResponse
 	});
 }
 

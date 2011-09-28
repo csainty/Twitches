@@ -3,29 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using BookSleeve;
+using ServiceStack.Redis;
 using ServiceStack.Text;
 
 namespace Twitches.Controllers
 {
 	public class ApiController : Controller
 	{
-		private readonly RedisConnection _Connection;
+		private readonly RedisClient _Client;
 
-		public ApiController(RedisConnection connection)
+		public ApiController(RedisClient client)
 		{
-			_Connection = connection;
+			_Client = client;
 		}
 
 		public ActionResult GetMessages(string channel)
 		{
-			var messages = _Connection.Lists.RangeString(1, channel, 0, 10);
-			return Serialize(new GetMessagesResult(_Connection.Wait(messages).Select(d => new Message(d)).ToArray()));
+			var messages = _Client.GetRangeFromList(channel, 0, 10);
+			return Serialize(new GetMessagesResult(messages.Select(d => new Message(d)).ToArray()));
 		}
 
 		public ActionResult SendMessage(string channel, string message)
 		{
-			_Connection.Lists.AddFirst(1, channel, message);
+			_Client.PushItemToList(channel, message);
 			return Serialize(new SendMessageResult(true));
 		}
 

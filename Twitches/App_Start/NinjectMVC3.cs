@@ -3,6 +3,7 @@
 
 namespace Twitches.App_Start
 {
+	using System;
 	using System.Configuration;
 	using System.Reflection;
 	using Microsoft.Web.Infrastructure.DynamicModuleHelper;
@@ -48,19 +49,15 @@ namespace Twitches.App_Start
 		/// <param name="kernel">The kernel.</param>
 		private static void RegisterServices(IKernel kernel)
 		{
-			kernel.Bind<BookSleeve.RedisConnection>()
+			kernel.Bind<ServiceStack.Redis.RedisClient>()
 				.ToMethod(ctx =>
 				{
-					var conn = new BookSleeve.RedisConnection(ConfigurationManager.AppSettings["REDISTOGO_URL"]);
-					conn.Open();
+					var uri = new Uri(ConfigurationManager.AppSettings["REDISTOGO_URL"]);
+					var conn = new ServiceStack.Redis.RedisClient(uri.Host, uri.Port);
+					conn.Password = uri.UserInfo.Split(':')[1];
 					return conn;
 				})
-				.InSingletonScope()
-				.OnDeactivation((BookSleeve.RedisConnection conn) =>
-				{
-					conn.Close(false);
-					conn.Dispose();
-				});
+				.InRequestScope();
 		}
 	}
 }

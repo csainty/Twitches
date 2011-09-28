@@ -45,7 +45,14 @@
         <article class="whiteBox">
             <div class="contentBox">
 				<p data-bind="visible: firstTime">Just playing around with KnockoutJS, type a term in the search box and hit search.</p>
-                <ul data-bind="template: { name : 'tweetTemplate', foreach: tweets }"></ul>
+                <h2>Chat</h2>
+				<ul data-bind="template: { name : 'messageTemplate', foreach: messages }"></ul>
+				<input type="text" placeholder="chat" data-bind="value: chatMessage" />
+				<button data-bind="click: sendMessage">Send</button>
+				<button data-bind="click: refreshMessages">Refresh</button>
+				<hr />
+				<h2>Twitter Stream</h2>
+				<ul data-bind="template: { name : 'tweetTemplate', foreach: tweets }"></ul>
             </div>
         </article>
         <aside class="whiteBox">
@@ -54,11 +61,6 @@
                 <button data-bind="click: search">Search</button>
             </div>
         </aside>
-		<aside class="whiteBox">
-			<div class="contentBox">
-				<ul data-bind="template: { name : 'messageTemplate', foreach: messages }"></ul>
-			</div>
-		</aside>
     </section>
     <script type="text/x-jquery-tmpl" id="tweetTemplate">
         <li class="tweet">
