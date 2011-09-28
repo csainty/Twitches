@@ -54,6 +54,11 @@
                 <button data-bind="click: search">Search</button>
             </div>
         </aside>
+		<aside class="whiteBox">
+			<div class="contentBox">
+				<ul data-bind="template: { name : 'messageTemplate', foreach: messages }"></ul>
+			</div>
+		</aside>
     </section>
     <script type="text/x-jquery-tmpl" id="tweetTemplate">
         <li class="tweet">
@@ -65,6 +70,11 @@
 			<div class="ui-helper-clearfix"></div>
         </li>
     </script>
+	<script type="text/x-jquery-tmpl" id="messageTemplate">
+		<li class="message">
+			${text}
+		</li>
+	</script>
     @Html.CombresLink("siteJs")
 </body>
 </html>

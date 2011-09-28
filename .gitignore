@@ -49,3 +49,17 @@ packages/repositories.config
 packages/YUICompressor.NET.1.5.0.0/lib/NET20
 Twitches/log.txt
 Twitches/log.*
+packages/BookSleeve.1.1.0.1/lib/BookSleeve 1.1.zip
+packages/BookSleeve.1.1.0.1/lib/BookSleeve.XML
+packages/BookSleeve.1.1.0.1/lib/license.txt
+packages/Ninject.2.2.1.4/lib/net35-Client
+packages/Ninject.2.2.1.4/lib/net35-Full
+packages/Ninject.2.2.1.4/lib/net40-Client
+packages/Ninject.2.2.1.4/lib/net40-Full/Ninject.xml
+packages/Ninject.2.2.1.4/lib/sl2
+packages/Ninject.2.2.1.4/lib/sl3-wp
+packages/Ninject.2.2.1.4/lib/sl3
+packages/Ninject.2.2.1.4/lib/sl4
+packages/Ninject.MVC3.2.2.2.0/lib/net40-Full/Ninject.Web.Mvc.xml
+packages/ServiceStack.Text.2.26/lib/net35/ServiceStack.Text.XML
+packages/ServiceStack.Text.2.26/servicestack.text.nuget

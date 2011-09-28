@@ -7,6 +7,7 @@
 	lastSearchTerm: ko.observable(""),
 	twitter_since_id: ko.observable(""),
 	tweets: ko.observableArray([]),
+	messages: ko.observableArray([]),
 	signIn: signIn,
 	search: searchTwitter
 }
@@ -39,6 +40,24 @@ function searchTwitter() {
 		},
 		success: handleTwitterResponse
 	});
+	$.ajax({
+		url: '/Api/SendMessage',
+		dataType: 'json',
+		data: {
+			channel: viewModel.searchTerm(),
+			message: 'Hello World'
+		},
+		success: function (result) {
+			$.ajax({
+				url: '/Api/GetMessages',
+				dataType: 'json',
+				data: {
+					channel: viewModel.searchTerm()
+				},
+				success: handleMessageResponse
+			});
+		}
+	});
 }
 
 function handleTwitterResponse(result) {
@@ -47,5 +66,11 @@ function handleTwitterResponse(result) {
 		if (result.results[index].text.substring(0, 2) !== "RT") {
 			viewModel.tweets.unshift(result.results[index]);
 		}
+	}
+}
+
+function handleMessageResponse(result) {
+	for (var index = result.messages.length - 1; index >= 0; index--) {
+		viewModel.messages.unshift(result.messages[index]);
 	}
 }
