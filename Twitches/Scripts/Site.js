@@ -1,34 +1,28 @@
 ﻿var viewModel = {
 	firstTime: ko.observable(true),
-	isLoggedIn: ko.observable(false),
 	loaded: ko.observable(true),
-	userName: ko.observable(""),
 	searchTerm: ko.observable(""),
-	chatMessage: ko.observable(""),
 	lastSearchTerm: ko.observable(""),
 	twitter_since_id: ko.observable(""),
 	tweets: ko.observableArray([]),
-	messages: ko.observableArray([]),
-	signIn: signIn,
-	search: searchTwitter,
-	sendMessage: sendMessage,
-	refreshMessages: pollMessages
+	search: searchTwitter
 }
-viewModel.welcomeMessage = ko.dependentObservable(function () {
-	return this.isLoggedIn() ? this.userName() : "Sign In";
-}, viewModel);
 ko.applyBindings(viewModel);
-
-function signIn() {
-	viewModel.isLoggedIn(true);
-	viewModel.userName("testing");
-}
+ko.linkObservableToUrl(viewModel.searchTerm, "q", "");
+viewModel.searchTerm.subscribe(function (value) {
+	searchTwitter();
+});
 
 function searchTwitter() {
+	if (viewModel.searchTerm() === '') {
+		viewModel.firstTime(true);
+		clearTweets();
+		return;
+	}
+
 	viewModel.firstTime(false);
 	if (viewModel.lastSearchTerm() != viewModel.searchTerm()) {
-		viewModel.tweets.removeAll();
-		viewModel.twitter_since_id('');
+		clearTweets();
 		viewModel.lastSearchTerm(viewModel.searchTerm());
 	}
 	$.ajax({
@@ -45,34 +39,6 @@ function searchTwitter() {
 	});
 }
 
-function sendMessage() {
-	$.ajax({
-		url: '/Api/SendMessage',
-		dataType: 'json',
-		cache: false,
-		data: {
-			channel: viewModel.searchTerm(),
-			message: viewModel.chatMessage()
-		},
-		success: function (result) {
-			viewModel.chatMessage('');
-			pollMessages();
-		}
-	});
-}
-
-function pollMessages() {
-	$.ajax({
-		url: '/Api/GetMessages',
-		dataType: 'json',
-		cache: false,
-		data: {
-			channel: viewModel.searchTerm()
-		},
-		success: handleMessageResponse
-	});
-}
-
 function handleTwitterResponse(result) {
 	viewModel.twitter_since_id(result.max_id);
 	for (var index = result.results.length - 1; index >= 0; index--) {
@@ -82,8 +48,7 @@ function handleTwitterResponse(result) {
 	}
 }
 
-function handleMessageResponse(result) {
-	for (var index = result.messages.length - 1; index >= 0; index--) {
-		viewModel.messages.unshift(result.messages[index]);
-	}
+function clearTweets() {
+	viewModel.tweets.removeAll();
+	viewModel.twitter_since_id('');
 }

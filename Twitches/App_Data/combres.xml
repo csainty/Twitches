@@ -5,10 +5,10 @@
   Also, refer to Combres' documentation: http://combres.codeplex.com/documentation
 -->
 <combres xmlns='urn:combres'>
-  <filters>
-    <filter type="Combres.Filters.FixUrlsInCssFilter, Combres" />
-  </filters>
-  <resourceSets url="~/combres.axd"
+	<filters>
+		<filter type="Combres.Filters.FixUrlsInCssFilter, Combres" />
+	</filters>
+	<resourceSets url="~/combres.axd"
                 defaultDuration="30"
                 defaultVersion="auto"
                 defaultDebugEnabled="false"
@@ -16,33 +16,18 @@
                 localChangeMonitorInterval="30"
                 remoteChangeMonitorInterval="60"
                 >
-    <resourceSet name="siteCss" type="css">
-      <resource path="~/content/Reset.css" />
-      <resource path="~/content/Less4/fonts.css" />
-      <resource path="~/content/Less4/style.css" />
-      <resource path="~/content/Site.css" />
-      <resource path="~/content/Less4/10col.css" />
-    </resourceSet>
+		<resourceSet name="siteCss" type="css">
+			<resource path="~/content/Reset.css" />
+			<resource path="~/content/Site.css" />
+		</resourceSet>
 
-    <resourceSet name="less-10" type="css">
-      <resource path="~/content/Less4/10col.css" />
-    </resourceSet>
-    <resourceSet name="less-8" type="css">
-      <resource path="~/content/Less4/8col.css" />
-    </resourceSet>
-    <resourceSet name="less-5" type="css">
-      <resource path="~/content/Less4/5col.css" />
-    </resourceSet>
-    <resourceSet name="less-3" type="css">
-      <resource path="~/content/Less4/3col.css" />
-    </resourceSet>
-
-    <resourceSet name="siteJs" type="js">
-      <resource path="~/scripts/jquery-1.6.4.js" />
-      <resource path="~/scripts/jquery.tmpl.js" />
-      <resource path="~/scripts/jquery.mediaqueries1.2.js" />
-      <resource path="~/scripts/knockout-1.3.0beta.js" />
-      <resource path="~/scripts/Site.js" />
-    </resourceSet>
-  </resourceSets>
+		<resourceSet name="siteJs" type="js">
+			<resource path="~/scripts/jquery-1.6.4.js" />
+			<resource path="~/scripts/jquery.tmpl.js" />
+			<resource path="~/scripts/jquery.address-1.4.js" />
+			<resource path="~/scripts/knockout-1.3.0beta.js" />
+			<resource path="~/scripts/knockout.address.js" />
+			<resource path="~/scripts/Site.js" />
+		</resourceSet>
+	</resourceSets>
 </combres>

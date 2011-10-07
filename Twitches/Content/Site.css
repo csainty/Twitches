@@ -8,7 +8,6 @@
 .ui-helper-clearfix {
 	display: inline-block;
 }
-/* required comment for clearfix to work in Opera \*/
 * html .ui-helper-clearfix {
 	height: 1%;
 }
@@ -19,4 +18,54 @@ h2 {
 	font-size: 14.8px;
 	font-weight: bold;
 }
-/* end clearfix */
+body {
+	width: 896px;
+	padding: 24px 48px 84px 48px;
+	background-color: #bbbbcc;
+}
+
+header {
+	height: 48px;
+}
+section {
+	margin-top: 24px;
+}
+article {
+	float: left;
+	width: 528px;
+}
+aside {
+	float: left;
+	width: 344px;
+	margin-left: 24px;
+}
+
+.contentBox {
+	position: relative;
+	padding: 1em;
+}
+
+.whiteBox {
+	border-radius: 6px;
+	background-color: #FFF;
+}
+
+.tweet {
+	border-bottom: 1px solid #696969;
+	margin-bottom: 1.5em;
+	padding-bottom: .5em;
+}
+
+.tweet img {
+	float: left;
+	padding: 5px;
+	border: 1px solid #696969;
+	border-radius: 6px;
+	margin-right: .8em;
+	width: 48px;
+	height: 48px;
+}
+
+.tweet .datetime {
+	text-align: right;
+}

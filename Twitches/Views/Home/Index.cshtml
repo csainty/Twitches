@@ -4,54 +4,19 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width; initial-scale=1" />
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-
-@*  
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
-    <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
-    <link rel="apple-touch-icon" sizes="114x114" href="assets/114-icon.png" />
-    <link rel="apple-touch-startup-image" href="images/splash.png">
-*@
-
     <title>Twitch.es</title>
-    <link rel="stylesheet" href="@Html.CombresUrl("siteCss")" media="all" />
-    <link rel="stylesheet" href="@Html.CombresUrl("less-10")" media="only screen and (min-width: 992px)" />
-    <link rel="stylesheet" href="@Html.CombresUrl("less-8")" media="only screen and (min-width: 768px) and (max-width: 991px)" />
-    <link rel="stylesheet" href="@Html.CombresUrl("less-3")" media="only screen and (max-width: 767px)" />
-    <link rel="stylesheet" href="@Html.CombresUrl("less-5")" media="only screen and (min-width: 480px) and (max-width: 767px)" />
-    <!--[if lt IE 9]>
-        <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <link rel="stylesheet" href="@Html.CombresUrl("siteCss")" />
 </head>
 <body data-bind="visible: loaded" style="display: none;">
     <header class="whiteBox">
         <div class="contentBox">
             <a href="/">Twitch.es</a>
-            <nav>
-                <ul>
-                    <li data-bind="visible: isLoggedIn">
-                        Welcome <span data-bind="text: userName"></span>
-                    </li>
-                    <li data-bind="visible: isLoggedIn() === false">
-                        <button data-bind="click: signIn">Sign In</button>
-                    </li>
-                </ul>
-            </nav>
         </div>
     </header>
     <section>
         <article class="whiteBox">
             <div class="contentBox">
 				<p data-bind="visible: firstTime">Just playing around with KnockoutJS, type a term in the search box and hit search.</p>
-                <h2>Chat</h2>
-				<ul data-bind="template: { name : 'messageTemplate', foreach: messages }"></ul>
-				<input type="text" placeholder="chat" data-bind="value: chatMessage" />
-				<button data-bind="click: sendMessage">Send</button>
-				<button data-bind="click: refreshMessages">Refresh</button>
-				<hr />
-				<h2>Twitter Stream</h2>
 				<ul data-bind="template: { name : 'tweetTemplate', foreach: tweets }"></ul>
             </div>
         </article>
@@ -61,6 +26,7 @@
                 <button data-bind="click: search">Search</button>
             </div>
         </aside>
+		<div class="ui-helper-clearfix"></div>
     </section>
     <script type="text/x-jquery-tmpl" id="tweetTemplate">
         <li class="tweet">
@@ -68,15 +34,10 @@
 			<p class="content">
 				${from_user}: ${text}<br />
 			</p>
-			<p class="datetime">${created_at.toLocaleString()}</p>
+			<p class="datetime">${created_at}</p>
 			<div class="ui-helper-clearfix"></div>
         </li>
     </script>
-	<script type="text/x-jquery-tmpl" id="messageTemplate">
-		<li class="message">
-			${text}
-		</li>
-	</script>
     @Html.CombresLink("siteJs")
 </body>
 </html>
